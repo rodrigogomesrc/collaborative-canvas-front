@@ -1,0 +1,8 @@
+.pixel-row {
+    display: flex;
+}
+
+.canva-container {
+    border: 1px solid black;
+    width: max-content;
+}
