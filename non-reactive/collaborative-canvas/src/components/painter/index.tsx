@@ -15,7 +15,6 @@ export default function Painter({ name, color, position }: PainterProps) {
       color: "#333",
       fontSize: "16px",
       fontWeight: "bold",
-      textTransform: "capitalize",
     },
     colorIndicator: {
       width: "20px",
@@ -30,7 +29,7 @@ export default function Painter({ name, color, position }: PainterProps) {
     <div style={styles.container as any}>
       <div style={styles.colorIndicator} />
       <div>
-        {name} played at position {position}
+        {name} | {position}
       </div>
     </div>
   );

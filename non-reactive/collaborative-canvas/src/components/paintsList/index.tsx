@@ -12,7 +12,6 @@ interface Props {
 const PainterList: React.FC<Props> = ({ painters }) => {
   return (
     <div >
-    <h5>Last 5 Painters</h5>
       {painters.map((painter, index) => (
         <Painter
           key={index}

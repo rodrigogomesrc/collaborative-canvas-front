@@ -18,7 +18,9 @@ export default function GamePage(){
         <div>
             <h2>Game Page</h2>
             <Canva />
+            <h4>Last 5 Paintings:</h4>
             <PaintsList painters={painters} />
+            <h4>Choose Color:</h4>
             <ColorPicker />
         </div>
     );
