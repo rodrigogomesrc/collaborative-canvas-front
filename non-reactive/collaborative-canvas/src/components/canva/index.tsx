@@ -1,43 +1,32 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Pixel from "@/components/pixel";
 import styles from "@/styles/Canva.module.css";
 
-const NUM_ROWS = 20;
-const NUM_COLS = 30;
+const NUM_ROWS = 64;
+const NUM_COLS = 64;
 
 export default function Canva() {
-  const [pixels, setPixels] = useState<string[][]>([]);
 
-  useEffect(() => {
-    const newPixels = [];
+  const pixels:string[][] = [];
     for (let y = 0; y < NUM_ROWS; y++) {
       const pixelRow = [];
       for (let x = 0; x < NUM_COLS; x++) {
         pixelRow.push("white");
       }
-      newPixels.push(pixelRow);
-    }
-    setPixels(newPixels);
+      pixels.push(pixelRow);
+  }
+
+  useEffect(() => {
+    localStorage.setItem("currentColor", 'black');
   }, []);
 
-  const setPixelColor = (x: number, y: number, color: string) => {
-    setPixels((prevPixels) => {
-      const newPixels = [...prevPixels];
-      newPixels[y][x] = color;
-      return newPixels;
-    });
-  };
-
-  const handleClick = (x: number, y: number) => {
-    setPixelColor(x, y, "black");
-  };
-
-  const pixelKey = (x: number, y: number) => {
-    return `${x}-${y}-${Math.random()}`;
-  };
+  const handleClick = useCallback((x: number, y: number) => {
+    let possibleColors = ["black", "red", "green", "blue", "yellow"];
+    let randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+    localStorage.setItem("currentColor", randomColor);
+  },[]);
 
   const getPixels = useMemo(() => {
-
     if (pixels.length === 0) {
       return null;
     }
@@ -51,7 +40,7 @@ export default function Canva() {
             size={10}
             backgroundColor={pixels[y][x]}
             handleClick={() => handleClick(x, y)}
-            key={pixelKey(x, y)}
+            key={`${x}-${y}`}
           />
         );
       }
@@ -64,5 +53,9 @@ export default function Canva() {
     return pixelRows;
   }, [pixels]);
 
-  return <div className={styles["canva-container"]}>{getPixels}</div>;
+  return(
+    <>
+      <div className={styles["canva-container"]}>{getPixels}</div>;
+    </>
+  ) 
 }
