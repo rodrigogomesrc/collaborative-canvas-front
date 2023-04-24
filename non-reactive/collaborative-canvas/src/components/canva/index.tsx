@@ -20,12 +20,6 @@ export default function Canva() {
     localStorage.setItem("currentColor", 'black');
   }, []);
 
-  const handleClick = useCallback((x: number, y: number) => {
-    let possibleColors = ["black", "red", "green", "blue", "yellow"];
-    let randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
-    localStorage.setItem("currentColor", randomColor);
-  },[]);
-
   const getPixels = useMemo(() => {
     if (pixels.length === 0) {
       return null;
@@ -39,7 +33,6 @@ export default function Canva() {
           <Pixel
             size={10}
             backgroundColor={pixels[y][x]}
-            handleClick={() => handleClick(x, y)}
             key={`${x}-${y}`}
           />
         );

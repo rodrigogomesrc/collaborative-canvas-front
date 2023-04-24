@@ -22,7 +22,6 @@ export default function Pixel({ size, backgroundColor, handleClick }: PixelProps
   });
 
   const onClick = () => {
-    //get color from local storage
     let currentColor = localStorage.getItem("currentColor");
     if (handleClick) {
       handleClick();
