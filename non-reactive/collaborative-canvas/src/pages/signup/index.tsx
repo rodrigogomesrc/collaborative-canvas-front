@@ -2,6 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import styles from "@/styles/Signup.module.css";
+import { savePlayer } from "@/apis/players";
 
 export default function SignupPage() {
   const [username, setUsername] = useState("");
@@ -17,7 +18,8 @@ export default function SignupPage() {
       return;
     }
 
-    console.log("Form submitted successfully");
+    savePlayer({"name": username, "password": password})
+
     setErrorMessage("");
   };
 
