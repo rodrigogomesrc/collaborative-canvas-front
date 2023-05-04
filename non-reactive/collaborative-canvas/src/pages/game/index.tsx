@@ -4,7 +4,24 @@ import Canva from "@/components/canva";
 import PaintsList from "@/components/paintsList";
 import ColorPicker from "@/components/colorPicker";
 
+import { useState, useEffect } from "react";
+
 export default function GamePage(){
+
+    const [username, setUsername] = useState("");
+    const [userId, setUserId] = useState("");
+
+    useEffect(() => {
+        const playerId = localStorage.getItem("playerId");
+        const username = localStorage.getItem("username");
+        if (playerId === null || username === null) {
+            window.location.href = "/";
+        } else {
+            setUsername(username);
+            setUserId(playerId);
+        }
+    }, []);
+
 
     const painters = [
         { name: "Bob Ross", color: "yellow", position: "(1,12)" },

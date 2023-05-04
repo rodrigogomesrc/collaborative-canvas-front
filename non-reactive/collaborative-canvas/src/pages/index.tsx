@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styles from '@/styles/Login.module.css';
 import Link from 'next/link';
 import { useState } from "react";
+import { loginPlayer } from '@/apis/players';
 
 
 export default function LoginPage() {
@@ -12,16 +13,29 @@ export default function LoginPage() {
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
-    if (username === "admin" && password === "password") {
-      
-      console.log("Logged in successfully!");
-      setErrorMessage("");
+    const playerPromisse = loginPlayer({"name": username, "password": password})
 
-    } else {
-      
-      setErrorMessage("Invalid username or password");
-    }
+      const player = playerPromisse.then((player) => {
+
+        console.log("player coming from loginPlayer: ");
+        console.log(player);
+
+        if (player === null) {
+          setErrorMessage("Invalid username or password");
+          return;
+        }
+
+        console.log("logged in successfully!");
+        const playerId = player.id;
+        console.log(playerId);
+        console.log(username);
+        localStorage.setItem("playerId", playerId);
+        localStorage.setItem("username", username);
+        window.location.href = "/game";
+      });
   };
+
+
   return (
     <>
       <Head>

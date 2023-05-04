@@ -17,9 +17,13 @@ export default function SignupPage() {
       setErrorMessage("Passwords do not match");
       return;
     }
-
-    savePlayer({"name": username, "password": password})
-
+    
+    const playerPromisse = savePlayer({"name": username, "password": password})
+    const player = playerPromisse.then((player) => {
+      console.log("logged in successfully!");
+      window.location.href = "/";
+    });
+    
     setErrorMessage("");
   };
 

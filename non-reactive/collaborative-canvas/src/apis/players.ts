@@ -14,12 +14,28 @@ export interface RegisterPlayer {
 }
 
 export const savePlayer = async (player: RegisterPlayer) => {
-    const response = await fetch(`${PLAYERS_BACKEND}/players`, {
+    const response = await fetch(`${PLAYERS_BACKEND}/player`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(player)
     });
+    return await response.json();
+}
+
+export const loginPlayer = async (player: RegisterPlayer) => {
+    const response = await fetch(`${PLAYERS_BACKEND}/player/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(player)
+    });
+
+    if (response.status === 401) {
+        return null;
+    }
+
     return await response.json();
 }
