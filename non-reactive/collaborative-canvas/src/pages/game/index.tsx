@@ -1,8 +1,8 @@
 import React from "react";
-
 import Canva from "@/components/canva";
 import PaintsList from "@/components/paintsList";
 import ColorPicker from "@/components/colorPicker";
+import Header from "@/components/header";
 
 import { useState, useEffect } from "react";
 
@@ -33,6 +33,7 @@ export default function GamePage(){
 
     return (
         <div>
+            <Header/>
             <h2>Game Page</h2>
             <Canva />
             <h4>Last 5 Paintings:</h4>
